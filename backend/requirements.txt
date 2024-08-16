@@ -1,0 +1,10 @@
+# install only required dependencies like pydantic is automatically installed when fastapi is installed
+
+asyncmy==0.2.9
+fastapi==0.111.0
+fastapi-restful[all]==0.6.0
+gunicorn==22.0.0
+greenlet==3.0.3
+python-dateutil==2.9.0
+sqlalchemy==2.0.31
+uvicorn==0.30.1

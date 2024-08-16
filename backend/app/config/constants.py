@@ -1,0 +1,5 @@
+DATABASE_NAME = "applicants"
+PASSWORD = "mysql"
+HOST = "localhost"
+PORT = "3306"
+DATABASE_URL = f"mysql+asyncmy://root:{PASSWORD}@{HOST}:{PORT}/{DATABASE_NAME}"

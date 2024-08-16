@@ -1,0 +1,39 @@
+<h3>Charts</h3>
+<hr>
+<div class="clr-row" style="margin-top: 50px">
+  <div class="clr-col-lg-7 clr-col-md-7 clr-col-12">
+    <div class="card">
+      <div class="card-block">
+        <div class="card-title flex">
+          <div style="flex-grow: 1">Select Months</div>
+          <div class="dropdown">
+            <div class="clr-select-wrapper">
+              <select
+                (change)="onChangeSelect($event)"
+                class="clr-select"
+                id="select-bar-basic"
+              >
+                <option *ngFor="let option of allMonths" [value]="option">{{ option }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="card-text">
+          <ngx-charts-line-chart
+            [legend]="legend"
+            [results]="chartData"
+            [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel"
+            [timeline]="timeline"
+            [view]="view"
+            [xAxisLabel]="xAxisLabel"
+            [xAxis]="xAxis"
+            [yAxisLabel]="yAxisLabel"
+            [yAxis]="yAxis"
+          >
+          </ngx-charts-line-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

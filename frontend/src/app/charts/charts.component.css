@@ -1,0 +1,9 @@
+.select {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+::ng-deep .legend-title {
+  height: auto;
+}

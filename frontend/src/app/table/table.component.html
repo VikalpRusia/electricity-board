@@ -1,0 +1,104 @@
+<div class="headers">
+  <mat-form-field>
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+      <input formControlName="start" matStartDate placeholder="Start date">
+      <input formControlName="end" matEndDate placeholder="End date">
+    </mat-date-range-input>
+    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle [for]="picker" matIconSuffix></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+  </mat-form-field>
+  <div>
+    <button (click)="loadData(undefined, undefined)" class="btn btn-primary">Search</button>
+  </div>
+</div>
+<clr-datagrid (clrDgRefresh)="refresh($event)" [clrDgLoading]="loading">
+  <!--  <clr-dg-column [clrDgField]="'ID'">-->
+  <!--     <ng-container *clrDgHideableColumn="{ hidden: true }">-->
+  <!--    ID-->
+  <!--     </ng-container>-->
+  <!--  </clr-dg-column>-->
+  <clr-dg-column [clrDgField]="'Applicant_Name'">Applicant Name</clr-dg-column>
+  <clr-dg-column [clrDgField]="'Gender'">
+    <ng-container *clrDgHideableColumn="{ hidden: true }">
+      Gender
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{ hidden: true }">
+      District
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{ hidden: true }">
+      State
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{ hidden: true }">
+      Pincode
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>Ownership</clr-dg-column>
+  <clr-dg-column>GovtID Type</clr-dg-column>
+  <clr-dg-column [clrDgField]="'ID_Number'">ID Number</clr-dg-column>
+  <clr-dg-column>Category</clr-dg-column>
+  <clr-dg-column>Load Applied IN KV</clr-dg-column>
+  <clr-dg-column>Date of Application</clr-dg-column>
+  <clr-dg-column>Date of Approval</clr-dg-column>
+  <clr-dg-column>Modified Date</clr-dg-column>
+  <clr-dg-column>Status</clr-dg-column>
+  <clr-dg-column>Reviewer ID</clr-dg-column>
+  <clr-dg-column>Reviewer Name</clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{ hidden: true }">
+      Reviewer Comments
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-placeholder>We couldn't find any Applicants!</clr-dg-placeholder>
+  <clr-dg-row
+    *ngFor="let applicantDetails of jsonData"
+    [clrDgItem]="applicantDetails"
+  >
+    <!--    <clr-dg-cell>{{ applicantDetails.ID }}</clr-dg-cell>-->
+    <clr-dg-cell>{{ applicantDetails.Applicant_Name }}</clr-dg-cell>
+    <clr-dg-cell>{{ applicantDetails.Gender }}</clr-dg-cell>
+    <clr-dg-cell>{{ applicantDetails.District }}</clr-dg-cell>
+    <clr-dg-cell>{{ applicantDetails.State }}</clr-dg-cell>
+    <clr-dg-cell>{{ applicantDetails.Pincode }}</clr-dg-cell>
+    <clr-dg-cell>{{ applicantDetails.Ownership }}</clr-dg-cell>
+    <clr-dg-cell>{{ applicantDetails.GovtID_Type }}</clr-dg-cell>
+    <clr-dg-cell>{{ applicantDetails.ID_Number }}</clr-dg-cell>
+    <clr-dg-cell>{{ applicantDetails.Category }}</clr-dg-cell>
+    <clr-dg-cell>{{ applicantDetails.Load_Applied_IN_KV }}</clr-dg-cell>
+    <clr-dg-cell>{{ applicantDetails.Date_of_Application }}</clr-dg-cell>
+    <clr-dg-cell>{{ applicantDetails.Date_of_Approval }}</clr-dg-cell>
+    <clr-dg-cell>{{ applicantDetails.Modified_Date }}</clr-dg-cell>
+    <clr-dg-cell>{{ applicantDetails.Status }}</clr-dg-cell>
+    <clr-dg-cell>{{ applicantDetails.Reviewer_ID }}</clr-dg-cell>
+    <clr-dg-cell>{{ applicantDetails.Reviewer_Name }}</clr-dg-cell>
+    <clr-dg-cell>{{ applicantDetails.Reviewer_Comments }}</clr-dg-cell>
+  </clr-dg-row>
+  <clr-dg-detail *clrIfDetail="let applicantDetails">
+    <clr-dg-detail-header>{{ applicantDetails.Applicant_Name }}</clr-dg-detail-header>
+    <clr-dg-detail-body style="padding-top: 0">
+      <hr>
+      <app-applicant-details [applicantDetails]="applicantDetails"></app-applicant-details>
+    </clr-dg-detail-body>
+  </clr-dg-detail>
+  <clr-dg-footer>
+    <clr-dg-pagination
+      #pagination
+      [(clrDgPage)]="pageNumber"
+      [clrDgPageSize]="pageSize"
+      [clrDgTotalItems]="totalCount"
+    >
+      <clr-dg-page-size [clrPageSizeOptions]="[10, 20, 50, 100]"
+      >Testbeds per page
+      </clr-dg-page-size>
+      {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} of
+      {{ pagination.totalItems }} Testbeds
+    </clr-dg-pagination>
+  </clr-dg-footer>
+</clr-datagrid>

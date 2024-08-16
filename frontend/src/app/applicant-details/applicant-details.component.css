@@ -1,0 +1,11 @@
+.table .heading {
+  background-color: #F1F6F8;
+}
+
+.hover-icon {
+  cursor: pointer;
+}
+
+.hover-disabled {
+  cursor: not-allowed;
+}

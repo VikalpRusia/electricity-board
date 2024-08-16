@@ -1,0 +1,57 @@
+<div style="display: flex; align-items: center">
+  <h4 style="margin-top: 5px; flex-grow: 1">Applicants Data: </h4>
+  <div style="display: flex;gap: 20px">
+    <clr-tooltip *ngIf="!editable">
+      <cds-icon (click)="editable=true" class="hover-icon" clrTooltipTrigger shape="pencil"
+                solid="true"></cds-icon>
+      <clr-tooltip-content [clrPosition]="'bottom-left'" [clrSize]="'sm'">
+        Edit record
+      </clr-tooltip-content>
+    </clr-tooltip>
+    <clr-tooltip *ngIf="editable">
+      <cds-icon (click)="resetTable()" class="hover-icon" clrTooltipTrigger shape="refresh"></cds-icon>
+      <clr-tooltip-content [clrPosition]="'bottom-left'" [clrSize]="'sm'">
+        Reset and close editing
+      </clr-tooltip-content>
+    </clr-tooltip>
+    <clr-tooltip *ngIf="editable && form.valid">
+      <cds-icon (click)="submit()" class="hover-icon" clrTooltipTrigger
+                shape="check"></cds-icon>
+      <clr-tooltip-content [clrPosition]="'bottom-left'" [clrSize]="'sm'">
+        Save record
+      </clr-tooltip-content>
+    </clr-tooltip>
+    <!--    <cds-icon (click)="editable=true" *ngIf="!editable" class="hover-icon" shape="pencil" solid="true"></cds-icon>-->
+    <!--    <cds-icon (click)="resetTable()" *ngIf="editable" class="hover-icon" shape="refresh"></cds-icon>-->
+    <!--    <cds-icon (click)="submit()" *ngIf="editable" [ngClass]="form.valid?'hover-icon': 'hover-disabled'"-->
+    <!--              shape="check"></cds-icon>-->
+  </div>
+</div>
+<form [formGroup]="form">
+  <table class="table">
+    <tbody>
+    <tr *ngFor="let item of applicantDetails | keyvalue">
+      <td class="heading left">{{ item.key }}</td>
+      <td class="left">
+        <!--      {{item.value}}-->
+        <clr-input-container *ngIf="item.key == 'Load_Applied_IN_KV'; else others" style="margin: 0">
+          <input [formControlName]="item.key" [readOnly]="!isEditable(item.key)" clrInput
+                 max="200"
+                 min="0"
+                 required type="number"/>
+          <clr-control-error *clrIfError="'min'">Can only be positive</clr-control-error>
+          <clr-control-error *clrIfError="'max'">Cannot be more than 200Kv</clr-control-error>
+        </clr-input-container>
+        <ng-template #others>
+          <clr-input-container style="margin: 0">
+            <input [formControlName]="item.key" [readOnly]="!isEditable(item.key)" [type]="identifyType(item.key)"
+                   clrInput/>
+            <clr-control-error *clrIfError="'min'">Can only be positive</clr-control-error>
+            <clr-control-error *clrIfError="'max'">Cannot be more than 200Kv</clr-control-error>
+          </clr-input-container>
+        </ng-template>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</form>
